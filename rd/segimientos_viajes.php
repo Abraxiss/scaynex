@@ -13,9 +13,9 @@ if (isset($_POST['f'])) {
 
 
 $query="
-SELECT RD_SEGIMIENTOS_HEAD.*, RD_SEGIMIENTOS_HEAD.S_FECHA
-FROM RD_SEGIMIENTOS_HEAD
-WHERE (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'))";
+SELECT rd_segimientos_head.*, rd_segimientos_head.S_FECHA
+FROM rd_segimientos_head
+WHERE (((rd_segimientos_head.S_FECHA)='$fecha'))";
 $result=mysqli_query($conexion, $query);
 
 ?>
@@ -52,20 +52,20 @@ $result=mysqli_query($conexion, $query);
 </style>
 <?php
 $queryT="
-SELECT Count(RD_SEGIMIENTOS_HEAD.Id_SERG) AS CuentaDeId_SERG, RD_SEGIMIENTOS_HEAD.S_FECHA
-FROM RD_SEGIMIENTOS_HEAD
-GROUP BY RD_SEGIMIENTOS_HEAD.S_FECHA
-HAVING (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'))";
+SELECT Count(rd_segimientos_head.Id_SERG) AS CuentaDeId_SERG, rd_segimientos_head.S_FECHA
+FROM rd_segimientos_head
+GROUP BY rd_segimientos_head.S_FECHA
+HAVING (((rd_segimientos_head.S_FECHA)='$fecha'))";
 $resultT=mysqli_query($conexion, $queryT);
 $filasT=mysqli_fetch_assoc($resultT);
 
 ?>
 <?php
 $queryTS="
-SELECT RD_SEGIMIENTOS_HEAD.S_FECHA, Count(RD_SERVICIO.Id_SERV) AS CuentaDeId_SERV
-FROM RD_SEGIMIENTOS_HEAD INNER JOIN RD_SERVICIO ON RD_SEGIMIENTOS_HEAD.Id_SERG = RD_SERVICIO.Id_SERG
-GROUP BY RD_SEGIMIENTOS_HEAD.S_FECHA
-HAVING (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'))
+SELECT rd_segimientos_head.S_FECHA, Count(rd_servicio.Id_SERV) AS CuentaDeId_SERV
+FROM rd_segimientos_head INNER JOIN rd_servicio ON rd_segimientos_head.Id_SERG = rd_servicio.Id_SERG
+GROUP BY rd_segimientos_head.S_FECHA
+HAVING (((rd_segimientos_head.S_FECHA)='$fecha'))
 ";
 $resultTS=mysqli_query($conexion, $queryTS);
 $filasTS=mysqli_fetch_assoc($resultTS);
@@ -74,10 +74,10 @@ $filasTS=mysqli_fetch_assoc($resultTS);
 
 <?php
 $queryEF="
-SELECT RD_SEGIMIENTOS_HEAD.S_FECHA, Count(rd_operadores.Id_SERG) AS CuentaDeId_SERV, Sum(EFECTIVO + YAPE + PLIN + OTROEF) AS TOTALEF
-FROM RD_SEGIMIENTOS_HEAD INNER JOIN rd_operadores ON RD_SEGIMIENTOS_HEAD.Id_SERG = rd_operadores.Id_SERG
-GROUP BY RD_SEGIMIENTOS_HEAD.S_FECHA
-HAVING (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'));
+SELECT rd_segimientos_head.S_FECHA, Count(rd_operadores.Id_SERG) AS CuentaDeId_SERV, Sum(EFECTIVO + YAPE + PLIN + OTROEF) AS TOTALEF
+FROM rd_segimientos_head INNER JOIN rd_operadores ON rd_segimientos_head.Id_SERG = rd_operadores.Id_SERG
+GROUP BY rd_segimientos_head.S_FECHA
+HAVING (((rd_segimientos_head.S_FECHA)='$fecha'));
 
 ";
 $resultEF=mysqli_query($conexion, $queryEF);

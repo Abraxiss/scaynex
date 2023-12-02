@@ -19,11 +19,25 @@
          <a class="nav-link" href="home.php">HOME</a>
       </li>     
 
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          PROGRAMACION
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="rd_plantilla_read.php">PLANTILLA</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="rd_programaciones_read.php?f=<?php echo $FECHAW ?>">PROGRAMACIONES</a>
+        </div>
+      </li>
+
       <li class="nav-item active">
 
         <a class="nav-link" href="segimientos_read.php?f=<?php echo $FECHAW ?>">SEGUIMIENTO</a>
       </li>
-      
+
+
+
       <li class="nav-item active">
         <a class="nav-link active" href="user_update.php">MI PERFIL</a>
       </li>

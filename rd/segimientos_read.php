@@ -15,21 +15,15 @@ $FECHAW=$_SESSION['fechaw'];
 
 
 $query="
-SELECT RD_SEGIMIENTOS_HEAD.*, RD_SEGIMIENTOS_HEAD.S_FECHA
-FROM RD_SEGIMIENTOS_HEAD
-WHERE (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'))";
+SELECT rd_segimientos_head.*, rd_segimientos_head.S_FECHA
+FROM rd_segimientos_head
+WHERE (((rd_segimientos_head.S_FECHA)='$fecha'))";
 $result=mysqli_query($conexion, $query);
 
 ?>
 
 <style>
-  .form-inline {
-  justify-content: flex-end;
-}
 
-.btn-primary {
-  margin-left: 10px;
-}
 
 
 </style>
@@ -38,7 +32,7 @@ $result=mysqli_query($conexion, $query);
 <div class="card text-center">
   <div class="card-header">
     <B><h4>
-    <span class="icon-truck"></span>  REPORTE DIARIO - CONTROL DE SERVICIOS <?php echo $fecha ?>
+    <span class="icon-truck"></span>  CONTROL DE SERVICIOS <?php echo $fecha ?>
     </B></h4>
 
 <div class="dropdown-divider"></div> 
@@ -54,20 +48,20 @@ $result=mysqli_query($conexion, $query);
 </style>
 <?php
 $queryT="
-SELECT Count(RD_SEGIMIENTOS_HEAD.Id_SERG) AS CuentaDeId_SERG, RD_SEGIMIENTOS_HEAD.S_FECHA
-FROM RD_SEGIMIENTOS_HEAD
-GROUP BY RD_SEGIMIENTOS_HEAD.S_FECHA
-HAVING (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'))";
+SELECT Count(rd_segimientos_head.Id_SERG) AS CuentaDeId_SERG, rd_segimientos_head.S_FECHA
+FROM rd_segimientos_head
+GROUP BY rd_segimientos_head.S_FECHA
+HAVING (((rd_segimientos_head.S_FECHA)='$fecha'))";
 $resultT=mysqli_query($conexion, $queryT);
 $filasT=mysqli_fetch_assoc($resultT);
 
 ?>
 <?php
 $queryTS="
-SELECT RD_SEGIMIENTOS_HEAD.S_FECHA, Count(RD_SERVICIO.Id_SERV) AS CuentaDeId_SERV
-FROM RD_SEGIMIENTOS_HEAD INNER JOIN RD_SERVICIO ON RD_SEGIMIENTOS_HEAD.Id_SERG = RD_SERVICIO.Id_SERG
-GROUP BY RD_SEGIMIENTOS_HEAD.S_FECHA
-HAVING (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'))
+SELECT rd_segimientos_head.S_FECHA, Count(rd_servicio.Id_SERV) AS CuentaDeId_SERV
+FROM rd_segimientos_head INNER JOIN rd_servicio ON rd_segimientos_head.Id_SERG = rd_servicio.Id_SERG
+GROUP BY rd_segimientos_head.S_FECHA
+HAVING (((rd_segimientos_head.S_FECHA)='$fecha'))
 ";
 $resultTS=mysqli_query($conexion, $queryTS);
 $filasTS=mysqli_fetch_assoc($resultTS);
@@ -76,10 +70,10 @@ $filasTS=mysqli_fetch_assoc($resultTS);
 
 <?php
 $queryEF="
-SELECT RD_SEGIMIENTOS_HEAD.S_FECHA, Count(rd_operadores.Id_SERG) AS CuentaDeId_SERV, Sum(EFECTIVO + YAPE + PLIN + OTROEF) AS TOTALEF
-FROM RD_SEGIMIENTOS_HEAD INNER JOIN rd_operadores ON RD_SEGIMIENTOS_HEAD.Id_SERG = rd_operadores.Id_SERG
-GROUP BY RD_SEGIMIENTOS_HEAD.S_FECHA
-HAVING (((RD_SEGIMIENTOS_HEAD.S_FECHA)='$fecha'));
+SELECT rd_segimientos_head.S_FECHA, Count(rd_operadores.Id_SERG) AS CuentaDeId_SERV, Sum(EFECTIVO + YAPE + PLIN + OTROEF) AS TOTALEF
+FROM rd_segimientos_head INNER JOIN rd_operadores ON rd_segimientos_head.Id_SERG = rd_operadores.Id_SERG
+GROUP BY rd_segimientos_head.S_FECHA
+HAVING (((rd_segimientos_head.S_FECHA)='$fecha'));
 
 ";
 $resultEF=mysqli_query($conexion, $queryEF);
@@ -88,52 +82,104 @@ $filasEF=mysqli_fetch_assoc($resultEF);
 ?>
 
 
+<style >
+ .bt   {
+
+ padding: 8px;
+ width: 130px;
+  font-size: 80%;
+  box-sizing:content-box;
+}
+
+ .efectivo   {
+ color: green;
+ border-radius: 5px;
+ border: 1px solid green;
+
+ background-color: red;
+}
 
 
 
-<div style="display: flex; justify-content: space-between;">
+.nv{
+
+ margin: 3px;
+
+}
+
+@media (max-width: 767px) {
+  .nv {
+    width: 100%;
+
+  }
+
+
+}
+
+</style>
+
+
+<div  style="display: flex; justify-content: space-between;">
   <div class="form-container" style="text-align: right;">
+
+
+<div class="container">
+  <div class="row botoness">
+   
     <a href="segimientos_caja.php?f=<?php echo $fecha ?>">
-    <button  type="button" class="btn btn-outline-primary">EFECTIVO DEL DIA: S/.<?php echo $filasEF ['TOTALEF'] ?>      
+    <button  type="button" class="btn btn-outline-primary bt">EFECTIVO DEL DIA: S/.<?php echo $filasEF ['TOTALEF'] ?>      
     </button>
     </a>
     &nbsp
     <a href="">
-    <button type="button" class="btn btn-outline-success">VIAJES DEL DIA: 0<?php echo $filasT ['CuentaDeId_SERG'] ?>
+    <button type="button" class="btn btn-outline-success bt">VIAJES DEL DIA: 0<?php echo $filasT ['CuentaDeId_SERG'] ?>
     </button>
     </a>
     &nbsp
     <a href="segimientos_servicios.php?f=<?php echo $fecha ?>">
-    <button type="button" class="btn btn-outline-dark">SERVICIOS DEL DIA: 0<?php echo $filasTS ['CuentaDeId_SERV'] ?>      
+    <button type="button" class="btn btn-outline-dark bt">SERVICIOS DEL DIA: 0<?php echo $filasTS ['CuentaDeId_SERV'] ?>      
     </button>
     </a>
+
+  </div>
+</div>
+
+
+
+
   </div>
 
   <div class="form-container text-right" style="text-align: left;">
-    <form action="segimientos_read.php" method="POST" class="form-inline">
+    <div class="container">
+  <div class="row botoness">
+    <div>    
+    <form  action="segimientos_read.php" method="POST" class="form-inline">
       <div class="form-group mb-2">
         <label for="staticEmail2" class="sr-only">FECHA</label>
       </div>
       <div class="form-group mx-sm-3 mb-2">
         <label for="f" class="sr-only">FECHA</label>
-        <input type="date" class="form-control" id="f" name="f" placeholder="DD/MM/AA" value="<?php echo $fecha ?>">
+        <input type="date" class="form-control nv" id="f" name="f" placeholder="DD/MM/AA" value="<?php echo $fecha ?>">
       </div>
-      <button type="submit" class="btn btn-primary mb-2">
+      <button type="submit" class="btn btn-primary mb-2 nv ">
         <span class="icon-search"></span> BUSCAR
       </button>
-    </form>
-    &nbsp
-    <a style="color: white;" type="button" data-toggle="modal" data-target="#nuevo" class="btn btn-success mb-2">
+    <a style="color: white;" type="button" data-toggle="modal" data-target="#nuevo" class="btn btn-success mb-2 nv ">
       <span class="icon-plus"></span> NUEVO
     </a>
+    <a style="color: white;" type="button" data-toggle="modal" data-target="#nuevo" class="btn btn-Warning mb-2 nv ">
+      <span class="icon-plus"></span> PLANTILLA
+    </a>
+    </form>
+
+    </div>
+
   </div>
 </div>
 
 
   </div>
 </div>
-
-
 
 
 
@@ -153,7 +199,6 @@ $filasEF=mysqli_fetch_assoc($resultEF);
       <th scope="col">OPERADORES</th>
       <th scope="col">COMBUSTIBLE</th>
       <th scope="col">GASTOS </th>
-      <th scope="col">RECORRIDO</th>
       <th scope="col">FACTURACION</th>
       <th scope="col">SEGUIMIENTO</th>
       <th scope="col">FIN</th>
@@ -291,7 +336,6 @@ HAVING (((rd_combustible.Id_SERG)='$Id_SERG'));
 $campos = array(
   
   "gastos",
-  "recorrido",
   "facturacion",
   "responsables"
 );
@@ -379,7 +423,7 @@ if ($numfilasx>0) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">NUEVO SERVICIO</h5>
+        <h5 class="modal-title" id="exampleModalLabel">NUEVA PRORAMACION</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -411,6 +455,40 @@ if ($numfilasx>0) {
 </div>
 
 <button type="submit" id="guardar" name="guardar" class="btn btn-primary btn-lg btn-block ">REGISTRAR</button>
+</form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="nuevo_pll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">NUEVA PRORAMACION</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+<form action="crud_rd/create.php" method="POST">
+<input class="form-control"  type="hidden" id="id_user" name="id_user" value="<?php echo $id_userup ; ?> " readonly>
+  <div class="form-group">
+    <label for="S_FECHA">FECHA:</label>
+    <input type="date" class="form-control" id="S_FECHA" name="S_FECHA" placeholder="FECHA" value='<?php echo $hoyfor ; ?>'>
+  
+  </div>
+
+<button type="submit" id="guardar" name="guardar" class="btn btn-Warning btn-lg btn-block ">GENERAR</button>
 </form>
 
 

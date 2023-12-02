@@ -68,7 +68,7 @@ if (isset($_GET['rd'])) {
       <tr>       
 
       <td>
-        <?php echo $filas ['TIPO_CARGA']  ?> 
+        <?php echo $filas ['TEMPERATURA']  ?> 
       </td>
       <td>
         <?php echo $filas ['PLACA']  ?> 
@@ -83,7 +83,7 @@ if (isset($_GET['rd'])) {
 
       </td>
       <td>
-        <?php echo $filas ['CITA']  ?> 
+        <?php echo $filas ['H_CITA']  ?> 
 
       </td>
       <td>

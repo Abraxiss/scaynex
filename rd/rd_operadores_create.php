@@ -35,15 +35,25 @@ if (isset($_GET['id'])) {
     <option value=" AUXILIAR1" ></option>
     <option value=" AUXILIAR2" > </option>
     <option value=" AUXILIAR3" ></option>
-    
     </datalist>
-
     </div>
 
-  <div class="form-group">
-    <label for="NOMBRE">NOMBRE:</label>
-    <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="NOMBRE" value="<?php echo $filas ['NOMBRE']; ?>">
-  </div>
+ <div class="form-group">
+  <label for="NOMBRE">NOMBRE : </label>
+  <input value="<?php echo $filas ['NOMBRE']; ?>" class="form-control" list="NOMBRES" type="text" id="NOMBRE" name="NOMBRE" required>
+    <datalist id="NOMBRES" >  
+    <option selected ></option>
+    <?php 
+      $queryP="SELECT * FROM usuarios ";
+      $resultP=mysqli_query($conexion, $queryP);
+    ?>
+    <?php while($filasP=mysqli_fetch_assoc($resultP)) { ?>
+      
+    <option value="<?php echo $filasP ['user_nombre']?>" >
+    </option>
+    <?php } ?>
+  </datalist>
+</div>
 
 
   <div class="form-group">
@@ -104,11 +114,22 @@ if (isset($_GET['id'])) {
 
     </div>
 
-  <div class="form-group">
-    <label for="NOMBRE">NOMBRE:</label>
-    <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="NOMBRE" >
-  </div>
-
+ <div class="form-group">
+  <label for="NOMBRE">NOMBRE : </label>
+  <input class="form-control" list="NOMBRES" type="text" id="NOMBRE" name="NOMBRE" required>
+    <datalist id="NOMBRES" >  
+    <option selected ></option>
+    <?php 
+      $queryP="SELECT * FROM usuarios ";
+      $resultP=mysqli_query($conexion, $queryP);
+    ?>
+    <?php while($filasP=mysqli_fetch_assoc($resultP)) { ?>
+      
+    <option value="<?php echo $filasP ['user_nombre']?>" >
+    </option>
+    <?php } ?>
+  </datalist>
+</div>
   
 
   <div class="form-group">

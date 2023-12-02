@@ -99,7 +99,7 @@ if (isset($_GET['rd'])) {
       </td>
       <td>
         <?php 
-         $EFEC = $filas ['TOTALEFECTIVO'];
+         $EFEC = $filas ['EFECTIVO'];
          $YAPE = $filas ['YAPE'];
          $PLIN = $filas ['PLIN'];
          $OTRO = $filas ['OTROEF'];
@@ -132,7 +132,6 @@ if (isset($_GET['rd'])) {
 <?php
 }
 ?>
-
 
 
 <?php include('includes/footer.php'); ?>

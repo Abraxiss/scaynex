@@ -10,7 +10,7 @@
 
 <?php
 if (isset($_POST['user_dni'])) {
-	
+	$F = $_POST['FECHA'];
 	$user = $_POST['user_dni'];
 	
 	$query="SELECT * FROM usuarios WHERE user_dni= $user ";
@@ -19,17 +19,18 @@ if (isset($_POST['user_dni'])) {
 	
 
 
-	if ($numfilas>0) { ?>
+	if ($numfilas>0) { 
 
-		<div class="container col-7">
 
-			<h5>El nombre de Usuario ya se encuentra Registrado...</h5>
-	
-			<a href="./../registro.php" class="btn btn-primary  btn-block" >Regresar...</a>		
+echo '<script>alert("El DNI - Usuario ya se encuentra Registrado...");</script>';
+
+	?>
+			<meta http-equiv="refresh" content="0;url=../rd_programaciones_read.php?f=<?php echo $F ; ?>#user" />		
 		</div>
 
-<?php
+	<?php
 
+die();
 
 	} else {
 
@@ -38,50 +39,34 @@ if (isset($_POST['user_dni'])) {
 $c2 = $_POST['user_dni'];
 $c4 = $_POST['user_nombre'];
 $c5 = $_POST['user_nick'];
-
-
 $c8 = $_POST['user_cargo'];
 $c9 = 123;
-$c10 = $_POST['user_perfil'];
-$c14 = $_POST['user_salario'];
-$c15 = $_POST['user_hingreso'];
-
+$c10 = 2;
 
 	$query= "INSERT INTO usuarios(  
 user_dni,
 user_nombre,
 user_nick,
-
-
 user_cargo,
 user_clave,
 user_perfil,
-user_salario,
-user_hingreso
 
 	) VALUES (
 '$c2',
 '$c4',
 '$c5',
-
-
 '$c8',
 '$c9',
-'$c10',
-'$c14',
-'$c15'
-
+'$c10'
 	)";
 
 	/*---create ---*/
-	$result = mysqli_query($conexion, $query);?>
+	$result = mysqli_query($conexion, $query);
 	
+echo '<script>alert("Usuario Registrado...");</script>';
 
-		<div class="container col-7">
-
-			<h5>Nuevo Usuario Registrado...</h5>
-	
-			<meta http-equiv="refresh" content="2;url=../user_listado.php" />		
+	?>
+			<meta http-equiv="refresh" content="0;url=../rd_programaciones_read.php?f=<?php echo $F ; ?>" />		
 		</div>
 
 	<?php	

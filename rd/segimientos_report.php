@@ -11,9 +11,9 @@ if (isset($_POST['id'])) {
 
 
 $query="
-SELECT RD_SEGIMIENTOS_HEAD.*, usuarios.user_nombre
-FROM usuarios INNER JOIN RD_SEGIMIENTOS_HEAD ON usuarios.Id_USER = RD_SEGIMIENTOS_HEAD.S_USER
-WHERE (((RD_SEGIMIENTOS_HEAD.Id_SERG)='$ID'));
+SELECT rd_segimientos_head.*, usuarios.user_nombre
+FROM usuarios INNER JOIN rd_segimientos_head ON usuarios.Id_USER = rd_segimientos_head.S_USER
+WHERE (((rd_segimientos_head.Id_SERG)='$ID'));
 ";
 $result=mysqli_query($conexion, $query);
 $filas=mysqli_fetch_assoc($result);

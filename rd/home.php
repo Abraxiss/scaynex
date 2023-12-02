@@ -53,7 +53,7 @@ filter: brightness(80%);
         
         <a href="user_listado.php" class="btn btn-primary btn-lg btn-block">LISTADO USUARIOS</a>
         
-        <a href="segimientos_read.php?f=<?php echo $hoy ?>" class="btn btn-primary btn-lg btn-block">SEGIMIENTOS</a>
+        <a href="segimientos_read.php?f=<?php echo $hoy ?>" class="btn btn-primary btn-lg btn-block">SEGUIMIENTOS</a>
 
         <a href="user_update.php" class="btn btn-primary btn-lg btn-block">MI PERFIL</a>
         
